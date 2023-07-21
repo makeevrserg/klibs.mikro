@@ -1,4 +1,4 @@
-[![version](https://img.shields.io/maven-central/v/ru.astrainteractive.klibs/kstorage?style=flat-square)](https://github.com/makeevrserg/kstorage)
+[![version](https://img.shields.io/maven-central/v/ru.astrainteractive.klibs/mikro-core?style=flat-square)](https://github.com/makeevrserg/kstorage)
 [![kotlin_version](https://img.shields.io/badge/kotlin-1.9.0-blueviolet?style=flat-square)](https://github.com/makeevrserg/kstorage)
 
 ## MiKro
