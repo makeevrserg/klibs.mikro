@@ -1,0 +1,6 @@
+.gradle
+.idea
+build
+mikro-core/build
+mikro-platform/build
+local.properties
