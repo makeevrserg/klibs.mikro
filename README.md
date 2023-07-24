@@ -50,7 +50,7 @@ class MyRepository(
         // some logic
     }
 }
-Or create custom
+// Or create custom
 class CustomKDispatchers : KotlinDispatchers {
     override val Main: CoroutineDispatcher
         get() = Dispatchers.Default
