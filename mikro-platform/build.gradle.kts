@@ -142,5 +142,5 @@ kotlin {
 }
 
 android {
-    namespace = "${projectInfo.group}.kstorage"
+    namespace = "${projectInfo.group}.mikro.platform"
 }
