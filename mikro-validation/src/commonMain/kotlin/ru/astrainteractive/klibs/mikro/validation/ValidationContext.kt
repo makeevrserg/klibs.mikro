@@ -16,16 +16,15 @@ interface ValidationContext<T, R> {
     /**
      * Remember validation for current value
      */
-    fun validate(validation: Validation<T>): Validation<T>
+    fun validate(otherwise: R, validation: Validation<T>): Validation<T>
 
     /**
-     * Create otherwise option whether validation not passed
+     * Remember validation for current value
      */
-    infix fun Validation<T>.otherwise(value: R)
+    fun validate(otherwise: (T) -> R, validation: Validation<T>): Validation<T>
 
     /**
      * Create list of remembered validators
      */
     fun create(): List<Validator<T, R>>
 }
-

@@ -11,3 +11,11 @@ fun interface Validator<T, R> {
      */
     fun validate(value: T): ValidatorResult<R>
 }
+
+class MailValidator : Validator<String, String> by DefaultValidator(
+    context = {
+        validate("Not contains @ symbol") {
+            it.contains("@")
+        }
+    }
+)

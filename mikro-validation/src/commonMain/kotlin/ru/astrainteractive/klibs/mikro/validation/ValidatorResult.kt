@@ -4,6 +4,7 @@ import kotlin.jvm.JvmInline
 
 sealed interface ValidatorResult<out T> {
     data object Success : ValidatorResult<Nothing>
+
     @JvmInline
     value class Failure<T>(val violation: T) : ValidatorResult<T>
 
@@ -15,5 +16,4 @@ sealed interface ValidatorResult<out T> {
 
     val violationOrNull: T?
         get() = (this as? Failure<T>)?.violation
-
 }
