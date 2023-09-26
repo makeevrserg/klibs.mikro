@@ -131,7 +131,7 @@ fun sample(): StateFlow<String> {
 }
 ```
 
-### Validation
+### Validation [Experimental]
 
 Validation allows you to validate changed of your textfields for example
 
