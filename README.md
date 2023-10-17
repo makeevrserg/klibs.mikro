@@ -26,6 +26,7 @@ klibs-mikro-platform = { module = "ru.astrainteractive.klibs:mikro-platform", ve
 ```
 
 ### Platform
+
 ```kotlin
 object SomeDI {
     lateinit var platform: PlatformConfiguration
@@ -41,7 +42,9 @@ fun onCreate() {
 ```
 
 ### Dispatchers
+
 Use it in repositories
+
 ```kotlin
 class MyRepository(
     private val customDispatchers: KotlinDispatchers = DefaultKotlinDispatchers
@@ -50,7 +53,8 @@ class MyRepository(
         // some logic
     }
 }
-Or create custom
+
+// Or create custom
 class CustomKDispatchers : KotlinDispatchers {
     override val Main: CoroutineDispatcher
         get() = Dispatchers.Default
@@ -64,6 +68,7 @@ class CustomKDispatchers : KotlinDispatchers {
 ```
 
 ### Mapper
+
 ```kotlin
 class StringMapper : Mapper<String, Int> {
     override fun toDTO(it: String): Int {
@@ -97,6 +102,7 @@ class MultiplyUseCase : UseCase.Parametrized<MultiplyUseCase.Param, Int> {
 ```
 
 ### EnumExt
+
 ```kotlin
 enum class NumEnum {
     ONE, TWO, THREE
@@ -108,7 +114,9 @@ fun sample() {
     val oneEnumAgain = oneEnum.next().next()
 }
 ```
+
 ### MapStateFlowExt
+
 ```kotlin
 fun sample(): StateFlow<String> {
     val stringStateFlow = MutableStateFlow("String")
@@ -121,6 +129,42 @@ fun sample(): StateFlow<String> {
         }
     )
 }
+```
+
+### Validation [Experimental]
+
+Validation allows you to validate changed of your textfields for example
+
+All validations stored in order which it was created
+
+```kotlin
+val validator = DefaultValidator<String, String> {
+    validate("Not enough length") { it.length > 2 }
+    validate("Not contains symbol '*'") { it.contains("*") }
+}
+// will return ValidatorResult.Failure("Not enough length")
+validator.validate("_")
+// will return ValidatorResult.Failure("Not contains symbol '*'")
+validator.validate("___")
+// will return ValidatorResult.Success
+validator.validate("___*")
+
+// Or create custom validators
+object MailValidator : Validator<String, String> by DefaultValidator(
+    context = {
+        validate("Not contains @ symbol") {
+            it.contains("@")
+        }
+    }
+)
+
+val validationResult = MailValidator.validate("mail@mail.com")
+// Is validation successful
+validationResult.isSuccess
+// Is validation failed
+validationResult.isFailure
+// Returns first violation
+validationResult.violationOrNull
 ```
 
 ## Locale

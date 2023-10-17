@@ -6,10 +6,7 @@ plugins {
 }
 kotlin {
     jvm()
-    androidTarget {
-        publishLibraryVariants("release", "debug")
-        publishLibraryVariantsGroupedByFlavor = true
-    }
+    androidTarget()
     js(IR) {
         browser()
         nodejs()
@@ -142,5 +139,5 @@ kotlin {
 }
 
 android {
-    namespace = "${projectInfo.group}.mikro.platform"
+    namespace = "${projectInfo.group}.validation"
 }
