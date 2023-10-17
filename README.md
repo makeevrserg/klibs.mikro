@@ -122,3 +122,17 @@ fun sample(): StateFlow<String> {
     )
 }
 ```
+
+## Locale
+Platform: JVM, iOS
+```kotlin
+// Create Locale Provider
+val localeProvider = LocaleProvider()
+// will get available locales with code, name
+localeProvider.availableLocales
+// will give current system language
+localeProvider.systemDefaultLanguage
+// Will return ru_RU locale info
+localeProvider.fromCode(SharedLocale.Code("ru_RU"))
+localeProvider.fromCode(SharedLocale.Code("ru"))
+```

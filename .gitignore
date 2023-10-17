@@ -3,4 +3,5 @@
 build
 mikro-core/build
 mikro-platform/build
+mikro-locale/build
 local.properties

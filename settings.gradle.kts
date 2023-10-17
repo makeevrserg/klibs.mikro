@@ -21,3 +21,4 @@ rootProject.name = "MiKro"
 // Subprojects
 include(":mikro-core")
 include(":mikro-platform")
+include(":mikro-locale")
