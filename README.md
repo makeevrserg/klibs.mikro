@@ -168,7 +168,9 @@ validationResult.violationOrNull
 ```
 
 ## Locale
+
 Platform: JVM, iOS
+
 ```kotlin
 // Create Locale Provider
 val localeProvider = LocaleProvider()
@@ -179,4 +181,17 @@ localeProvider.systemDefaultLanguage
 // Will return ru_RU locale info
 localeProvider.fromCode(SharedLocale.Code("ru_RU"))
 localeProvider.fromCode(SharedLocale.Code("ru"))
+```
+
+## Extensions
+
+Platform: Jvm,Android,Apple
+
+```kotlin
+// Use time formatter
+val timeFormatter: TimeFormatter = TODO()
+timeFormatter.format(instant, "yyyy-MM-dd", timeZone)
+// Use string provider
+val stringProvider: StringProvider = TODO()
+stringProvider.toString(StringDesc.Raw("Hello"))
 ```
