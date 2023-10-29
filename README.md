@@ -91,17 +91,17 @@ class StringMapper : Mapper<String, Int> {
 
 ```kotlin
 // Use simple UseCase
-class IntUseCase : UseCase.Simple<Int> {
-    override suspend fun invoke(): Int {
+class IntUseCase : UseCase.Suspended.Simple<Int> {
+    override suspend operator fun invoke(): Int {
         return 10
     }
 }
 
-// Or Parametrized
-class MultiplyUseCase : UseCase.Parametrized<MultiplyUseCase.Param, Int> {
+// Or Parametrized and blocking
+class MultiplyUseCase : UseCase.Blocking.Parametrized<MultiplyUseCase.Param, Int> {
     class Param(val value: Int, val multiplyBy: Int)
 
-    override suspend fun invoke(input: Param): Int {
+    override operator fun invoke(input: Param): Int {
         return input.value * input.multiplyBy
     }
 }
