@@ -12,6 +12,9 @@ Gradle
 ```kotlin
 implementation("ru.astrainteractive.klibs:mikro-core:<version>")
 implementation("ru.astrainteractive.klibs:mikro-platform:<version>")
+implementation("ru.astrainteractive.klibs:mikro-extensions:<version>")
+implementation("ru.astrainteractive.klibs:mikro-locale:<version>")
+implementation("ru.astrainteractive.klibs:mikro-validation:<version>")
 ```
 
 Version catalogs
@@ -23,6 +26,9 @@ klibs-mikro = "<latest-version>"
 [libraries]
 klibs-mikro-core = { module = "ru.astrainteractive.klibs:mikro-core", version.ref = "klibs-mikro" }
 klibs-mikro-platform = { module = "ru.astrainteractive.klibs:mikro-platform", version.ref = "klibs-mikro" }
+klibs-mikro-extensions = { module = "ru.astrainteractive.klibs:mikro-extensions", version.ref = "klibs-mikro" }
+klibs-mikro-locale = { module = "ru.astrainteractive.klibs:mikro-locale", version.ref = "klibs-mikro" }
+klibs-mikro-validation = { module = "ru.astrainteractive.klibs:mikro-validation", version.ref = "klibs-mikro" }
 ```
 
 ### Platform
