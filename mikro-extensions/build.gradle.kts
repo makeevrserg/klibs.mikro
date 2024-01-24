@@ -24,9 +24,9 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(libs.kotlin.coroutines.core)
-                implementation("com.arkivanov.decompose:decompose:2.0.1")
-                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
-                implementation("dev.icerock.moko:resources:0.23.0")
+                implementation(libs.arkivanov.decompose)
+                implementation(libs.kotlinx.datetime)
+                implementation(libs.moko.resources)
             }
         }
         val androidMain by getting
