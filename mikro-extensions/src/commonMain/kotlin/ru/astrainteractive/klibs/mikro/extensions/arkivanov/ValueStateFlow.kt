@@ -1,7 +1,6 @@
 package ru.astrainteractive.klibs.mikro.extensions.arkivanov
 
 import com.arkivanov.decompose.value.Value
-import com.arkivanov.decompose.value.observe
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -21,7 +20,7 @@ private class ValueStateFlow<out T : Any>(private val source: Value<T>) : StateF
 
     override suspend fun collect(collector: FlowCollector<T>): Nothing {
         val flow = MutableStateFlow(source.value)
-        val disposable = source.observe { flow.value = it }
+        val disposable = source.subscribe { flow.value = it }
 
         try {
             flow.collect(collector)
