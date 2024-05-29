@@ -8,7 +8,6 @@ plugins {
     id("com.android.library")
 }
 kotlin {
-    targetHierarchy.default()
     jvm()
     androidTarget {
         publishLibraryVariants("release", "debug")
@@ -19,6 +18,7 @@ kotlin {
     iosSimulatorArm64()
     macosX64()
     macosArm64()
+    applyDefaultHierarchyTemplate()
 
     sourceSets {
         /* Main source sets */
@@ -57,4 +57,12 @@ kotlin {
 
 android {
     namespace = "${requireProjectInfo.group}.mikro.extensions"
+}
+
+afterEvaluate {
+    tasks
+        .withType<AbstractPublishToMaven>()
+        .forEach { publishTask ->
+            tasks.withType<Sign>().forEach(publishTask::mustRunAfter)
+        }
 }
