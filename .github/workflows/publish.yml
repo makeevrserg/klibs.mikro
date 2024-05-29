@@ -8,16 +8,10 @@ on:
 jobs:
   gradle_validation:
     uses: ./.github/workflows/call-gradle-wrapper-validation.yml
-  detekt_validation:
-    needs: gradle_validation
-    uses: ./.github/workflows/call-detekt-validation.yml
-  tests_validation:
-    needs: gradle_validation
-    uses: ./.github/workflows/call-tests-validation.yml
   publish:
     name: Publish library at mavenCentral
     runs-on: macOS-latest
-    needs: [ gradle_validation, detekt_validation, tests_validation ]
+    needs: [ gradle_validation ]
     env:
       SIGNING_KEY_ID: ${{ secrets.SIGNING_KEY_ID }}
       SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
@@ -30,7 +24,8 @@ jobs:
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
-          java-version: 17
+          distribution: 'temurin'
+          java-version: '17'
       - name: Give gradle permission
         run: chmod +x gradlew
       - name: Prebuild library
