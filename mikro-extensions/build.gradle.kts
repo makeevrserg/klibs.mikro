@@ -1,13 +1,13 @@
 @file:Suppress("UnusedPrivateMember")
 
-import ru.astrainteractive.gradleplugin.util.ProjectProperties.projectInfo
+import ru.astrainteractive.gradleplugin.property.extension.ModelPropertyValueExt.requireProjectInfo
+
 
 plugins {
     kotlin("multiplatform")
     id("com.android.library")
 }
 kotlin {
-    targetHierarchy.default()
     jvm()
     androidTarget {
         publishLibraryVariants("release", "debug")
@@ -18,6 +18,7 @@ kotlin {
     iosSimulatorArm64()
     macosX64()
     macosArm64()
+    applyDefaultHierarchyTemplate()
 
     sourceSets {
         /* Main source sets */
@@ -55,5 +56,13 @@ kotlin {
 }
 
 android {
-    namespace = "${projectInfo.group}.mikro.extensions"
+    namespace = "${requireProjectInfo.group}.mikro.extensions"
+}
+
+afterEvaluate {
+    tasks
+        .withType<AbstractPublishToMaven>()
+        .forEach { publishTask ->
+            tasks.withType<Sign>().forEach(publishTask::mustRunAfter)
+        }
 }
