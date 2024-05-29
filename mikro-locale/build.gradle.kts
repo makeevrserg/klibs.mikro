@@ -1,4 +1,4 @@
-import ru.astrainteractive.gradleplugin.util.ProjectProperties.projectInfo
+import ru.astrainteractive.gradleplugin.property.extension.ModelPropertyValueExt.requireProjectInfo
 
 plugins {
     kotlin("multiplatform")
@@ -128,5 +128,5 @@ kotlin {
 }
 
 android {
-    namespace = "${projectInfo.group}.lokale"
+    namespace = "${requireProjectInfo.group}.lokale"
 }

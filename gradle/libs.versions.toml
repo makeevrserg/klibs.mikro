@@ -2,7 +2,7 @@
 # Kotlin
 kotlin-version = "2.0.0" # # https://github.com/JetBrains/kotlin
 kotlin-coroutines-core = "1.8.1" # https://github.com/Kotlin/kotlinx.coroutines
-makeevrserg-gradleplugin = "1.1.1" # https://github.com/makeevrserg/gradle-plugin
+makeevrserg-gradleplugin = "1.1.2" # https://github.com/makeevrserg/gradle-plugin
 gradle-android = "8.4.1" # https://developer.android.com/build#top-level
 decompose = "3.0.0" # https://github.com/arkivanov/Decompose
 kotlinx-datetime = "0.6.0" # https://github.com/Kotlin/kotlinx-datetime
