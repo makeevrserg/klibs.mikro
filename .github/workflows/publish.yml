@@ -7,13 +7,13 @@ on:
 
 jobs:
   gradle_validation:
-    uses: ./.github/workflows/gradle-wrapper-validation.yml
+    uses: ./.github/workflows/call-gradle-wrapper-validation.yml
   detekt_validation:
     needs: gradle_validation
-    uses: ./.github/workflows/detekt-validation.yml
+    uses: ./.github/workflows/call-detekt-validation.yml
   tests_validation:
     needs: gradle_validation
-    uses: ./.github/workflows/tests-validation.yml
+    uses: ./.github/workflows/call-tests-validation.yml
   publish:
     name: Publish library at mavenCentral
     runs-on: macOS-latest
