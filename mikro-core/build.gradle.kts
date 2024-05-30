@@ -49,11 +49,3 @@ kotlin {
 android {
     namespace = "${requireProjectInfo.group}.mikro.core"
 }
-
-afterEvaluate {
-    tasks
-        .withType<AbstractPublishToMaven>()
-        .forEach { publishTask ->
-            tasks.withType<Sign>().forEach(publishTask::mustRunAfter)
-        }
-}

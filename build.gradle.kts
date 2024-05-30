@@ -10,6 +10,7 @@ plugins {
     alias(libs.plugins.klibs.gradle.stub.javadoc) apply false
     alias(libs.plugins.klibs.gradle.publication) apply false
     alias(libs.plugins.klibs.gradle.rootinfo) apply false
+    alias(libs.plugins.klibs.gradle.publication.signing) apply false
     // klibs - android
     alias(libs.plugins.klibs.gradle.android.core) apply false
     alias(libs.plugins.klibs.gradle.android.compose) apply false
@@ -25,6 +26,9 @@ apply(plugin = "ru.astrainteractive.gradleplugin.root.info")
 subprojects.forEach { subProject ->
     subProject.apply(plugin = "ru.astrainteractive.gradleplugin.dokka.module")
     subProject.apply(plugin = "ru.astrainteractive.gradleplugin.publication")
+    subProject.afterEvaluate {
+        subProject.apply(plugin = "ru.astrainteractive.gradleplugin.publication.kmp-signing")
+    }
     subProject.plugins.withId("org.jetbrains.kotlin.jvm") {
         subProject.apply(plugin = "ru.astrainteractive.gradleplugin.java.core")
     }
