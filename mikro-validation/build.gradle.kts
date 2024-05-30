@@ -48,10 +48,3 @@ kotlin {
 android {
     namespace = "${requireProjectInfo.group}.validation"
 }
-afterEvaluate {
-    tasks
-        .withType<AbstractPublishToMaven>()
-        .forEach { publishTask ->
-            tasks.withType<Sign>().forEach(publishTask::mustRunAfter)
-        }
-}
