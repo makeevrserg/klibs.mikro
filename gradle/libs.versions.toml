@@ -2,12 +2,12 @@
 # Kotlin
 kotlin-version = "2.0.0" # # https://github.com/JetBrains/kotlin
 kotlin-coroutines-core = "1.8.1" # https://github.com/Kotlin/kotlinx.coroutines
-makeevrserg-gradleplugin = "1.3.3" # https://github.com/makeevrserg/gradle-plugin
+makeevrserg-gradleplugin = "1.3.4" # https://github.com/makeevrserg/gradle-plugin
 gradle-android = "8.5.0" # https://developer.android.com/build#top-level
 decompose = "3.1.0" # https://github.com/arkivanov/Decompose
 kotlinx-datetime = "0.6.0" # https://github.com/Kotlin/kotlinx-datetime
-moko-resources = "0.24.0" # https://github.com/icerockdev/moko-resources
-klibs-gradleplugin = "1.3.3" # https://github.com/makeevrserg/gradle-plugin
+moko-resources = "0.24.1" # https://github.com/icerockdev/moko-resources
+klibs-gradleplugin = "1.3.4" # https://github.com/makeevrserg/gradle-plugin
 [libraries]
 kotlin-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlin-coroutines-core" }
 makeevrserg-gradleplugin-convention = { module = "ru.astrainteractive.gradleplugin:convention", version.ref = "makeevrserg-gradleplugin" }
