@@ -26,7 +26,6 @@ kotlin {
             dependencies {
                 implementation(libs.kotlin.coroutines.core)
                 implementation(libs.arkivanov.decompose)
-                implementation(libs.kotlinx.datetime)
                 implementation(libs.moko.resources)
             }
         }

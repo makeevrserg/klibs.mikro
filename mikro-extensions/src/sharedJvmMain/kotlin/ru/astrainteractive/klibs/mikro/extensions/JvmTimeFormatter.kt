@@ -1,9 +1,9 @@
 package ru.astrainteractive.klibs.mikro.extensions
 
-import kotlinx.datetime.Instant
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toJavaLocalDateTime
-import kotlinx.datetime.toLocalDateTime
+import kotlin.time.Instant
+import kotlin.time.TimeZone
+import kotlin.time.toJavaLocalDateTime
+import kotlin.time.toLocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 
