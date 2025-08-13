@@ -1,10 +1,10 @@
 package ru.astrainteractive.klibs.mikro.core.coroutines
 
-import java.time.Clock
-import java.time.Instant
+import kotlin.time.Clock
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
-import kotlin.time.toJavaDuration
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 
 /**
  * A utility class that manages a simple suspension mechanism based on a duration.
@@ -38,19 +38,20 @@ interface Suspender {
     fun setSuspended()
 }
 
-class DefaultSuspender(
+@OptIn(ExperimentalTime::class)
+class KotlinTimeSuspender(
     private val duration: Duration,
-    private val clock: Clock = Clock.systemUTC()
+    private val clock: Clock = Clock.System
 ) : Suspender {
-    private var lastSuspendedAt: Instant = Instant.EPOCH
+    private var lastSuspendedAt: Instant = Instant.DISTANT_PAST
 
     override fun isSuspended(): Boolean {
-        val now = clock.instant()
-        return lastSuspendedAt.plus(duration.toJavaDuration()).isAfter(now)
+        val now = clock.now()
+        return lastSuspendedAt.plus(duration) > now
     }
 
     override fun setSuspended() {
-        lastSuspendedAt = clock.instant()
+        lastSuspendedAt = clock.now()
     }
 }
 
