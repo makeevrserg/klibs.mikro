@@ -1,7 +1,7 @@
 package ru.astrainteractive.klibs.mikro.extensions
 
-import kotlin.time.Instant
-import kotlin.time.TimeZone
+import kotlinx.datetime.Instant
+import kotlinx.datetime.TimeZone
 
 /**
  * Multiplatform ios/android time formatter

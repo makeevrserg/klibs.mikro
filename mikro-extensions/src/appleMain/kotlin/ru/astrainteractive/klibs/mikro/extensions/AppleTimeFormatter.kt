@@ -1,9 +1,9 @@
 package ru.astrainteractive.klibs.mikro.extensions
 
-import kotlin.time.Instant
-import kotlin.time.TimeZone
-import kotlin.time.toNSDate
-import kotlin.time.toNSTimeZone
+import kotlinx.datetime.Instant
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toNSDate
+import kotlinx.datetime.toNSTimeZone
 import platform.Foundation.NSDateFormatter
 import platform.Foundation.NSLocale
 import platform.Foundation.currentLocale
