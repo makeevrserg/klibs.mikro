@@ -15,6 +15,8 @@ dependencyResolutionManagement {
     }
 }
 
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 // Project info
 rootProject.name = "MiKro"
 

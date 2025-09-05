@@ -28,20 +28,16 @@ kotlin {
     applyDefaultHierarchyTemplate()
 
     sourceSets {
-        /* Main source sets */
-        @Suppress("UnusedPrivateProperty")
-        val commonMain by getting {
-            dependencies {
-                implementation(libs.kotlin.coroutines.core)
-            }
+        commonMain.dependencies {
+            implementation(libs.kotlin.coroutines.core)
         }
 
-        /* Test source sets */
-        @Suppress("UnusedPrivateProperty")
-        val commonTest by getting {
-            dependencies {
-                implementation(kotlin("test"))
-            }
+        jvmMain.dependencies {
+            implementation(libs.logback.classic)
+        }
+
+        commonTest.dependencies {
+            implementation(kotlin("test"))
         }
     }
 }

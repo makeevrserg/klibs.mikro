@@ -21,36 +21,32 @@ kotlin {
     applyDefaultHierarchyTemplate()
 
     sourceSets {
-        /* Main source sets */
-        val commonMain by getting {
-            dependencies {
-                implementation(libs.kotlin.coroutines.core)
-                implementation(libs.arkivanov.decompose)
-                implementation(libs.kotlinx.datetime)
-                implementation(libs.moko.resources)
-            }
+        commonMain.dependencies {
+            implementation(libs.kotlin.coroutines.core)
+            implementation(libs.arkivanov.decompose)
+            implementation(libs.kotlinx.datetime)
+            implementation(libs.moko.resources)
+            // Local
+            implementation(projects.mikroCore)
         }
-        val androidMain by getting
-        val jvmMain by getting
-        val sharedJvmMain by creating {
-            this.dependsOn(commonMain)
-            androidMain.dependsOn(this)
-            jvmMain.dependsOn(this)
+        jvmMain.dependencies {
+            implementation(libs.exposed.core)
+            implementation(libs.exposed.dao)
         }
-
-        /* Test source sets */
-        val commonTest by getting {
-            dependencies {
-                implementation(kotlin("test"))
-            }
+        create("sharedJvmMain") {
+            this.dependsOn(commonMain.get())
+            androidMain.get().dependsOn(this)
+            jvmMain.get().dependsOn(this)
         }
 
-        val androidUnitTest by getting
-        val jvmTest by getting
-        val sharedJvmTest by creating {
-            this.dependsOn(commonTest)
-            androidUnitTest.dependsOn(this)
-            jvmTest.dependsOn(this)
+        commonTest.dependencies {
+            implementation(kotlin("test"))
+        }
+
+        create("sharedJvmTest") {
+            this.dependsOn(commonTest.get())
+            androidUnitTest.get().dependsOn(this)
+            jvmTest.get().dependsOn(this)
         }
     }
 }
