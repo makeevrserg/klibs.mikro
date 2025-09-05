@@ -7,7 +7,9 @@ gradle-android = "8.11.0" # https://developer.android.com/build#top-level
 decompose = "3.3.0" # https://github.com/arkivanov/Decompose
 kotlinx-datetime = "0.6.2" # https://github.com/Kotlin/kotlinx-datetime
 moko-resources = "0.25.0" # https://github.com/icerockdev/moko-resources
-klibs-gradleplugin = "1.8.0" # https://github.com/makeevrserg/gradle-plugin
+klibs-gradleplugin = "1.8.0" # https://github.com/makeevrserg/gradle-plugin# Exposed
+exposed = "0.61.0" # https://github.com/JetBrains/Exposed
+logback-classic = "1.4.11"# https://github.com/qos-ch/logback
 [libraries]
 kotlin-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlin-coroutines-core" }
 makeevrserg-gradleplugin-convention = { module = "ru.astrainteractive.gradleplugin:convention", version.ref = "makeevrserg-gradleplugin" }
@@ -15,6 +17,9 @@ makeevrserg-gradleplugin-android = { module = "ru.astrainteractive.gradleplugin:
 arkivanov-decompose = { module = "com.arkivanov.decompose:decompose", version.ref = "decompose" }
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
 moko-resources = { module = "dev.icerock.moko:resources", version.ref = "moko-resources" }
+exposed-core = { module = "org.jetbrains.exposed:exposed-core", version.ref = "exposed" }
+exposed-dao = { module = "org.jetbrains.exposed:exposed-dao", version.ref = "exposed" }
+logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback-classic" }
 [plugins]
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin-version" }
 gradle-android = { id = "com.android.library", version.ref = "gradle-android" }

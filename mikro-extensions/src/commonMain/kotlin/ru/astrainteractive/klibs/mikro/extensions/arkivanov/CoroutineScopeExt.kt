@@ -8,19 +8,14 @@ import kotlinx.coroutines.cancel
 import kotlin.coroutines.CoroutineContext
 
 /**
- * @see <a href="https://github.com/arkivanov/nowinandroid/blob/decompose/core/decompose-utils/src/main/kotlin/com/google/samples/apps/nowinandroid/core/decompose/utils/CoroutineScope.kt">Source</href>
+ * Creates [CoroutineScope] which is bind to current [LifecycleOwner]
  *
  * @author @arkivanov
+ * @see <a href="https://github.com/arkivanov/nowinandroid/blob/decompose/core/decompose-utils/src/main/kotlin/com/google/samples/apps/nowinandroid/core/decompose/utils/CoroutineScope.kt">Source</href>
  */
 @Suppress("MaxLineLength")
-object CoroutineScopeExt {
-
-    /**
-     * Creates [CoroutineScope] which is bind to current [LifecycleOwner]
-     */
-    fun LifecycleOwner.coroutineScope(
-        context: CoroutineContext = Dispatchers.Main.immediate,
-    ): CoroutineScope = CoroutineScope(context = context).also { scope ->
-        lifecycle.doOnDestroy(scope::cancel)
-    }
+fun LifecycleOwner.coroutineScope(
+    context: CoroutineContext = Dispatchers.Main.immediate,
+): CoroutineScope = CoroutineScope(context = context).also { scope ->
+    lifecycle.doOnDestroy(scope::cancel)
 }

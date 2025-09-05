@@ -25,25 +25,18 @@ kotlin {
     applyDefaultHierarchyTemplate()
 
     sourceSets {
-        /* Main source sets */
-        val commonMain by getting {
-            dependencies {
-                implementation(libs.kotlin.coroutines.core)
-            }
+        commonMain.dependencies {
+            implementation(libs.kotlin.coroutines.core)
         }
         val jvmMain by getting
         val androidMain by getting
         val sharedJvmMain by creating
-        sharedJvmMain.dependsOn(commonMain)
+        sharedJvmMain.dependsOn(commonMain.get())
         jvmMain.dependsOn(sharedJvmMain)
         androidMain.dependsOn(sharedJvmMain)
 
-        /* Test source sets */
-        @Suppress("UnusedPrivateProperty")
-        val commonTest by getting {
-            dependencies {
-                implementation(kotlin("test"))
-            }
+        commonTest.dependencies {
+            implementation(kotlin("test"))
         }
     }
 }
