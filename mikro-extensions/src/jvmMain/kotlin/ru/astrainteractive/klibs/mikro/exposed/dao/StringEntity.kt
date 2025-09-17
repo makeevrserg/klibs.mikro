@@ -1,4 +1,4 @@
-package ru.astrainteractive.astralibs.exposed.dao
+package ru.astrainteractive.klibs.mikro.exposed.dao
 
 import org.jetbrains.exposed.dao.Entity
 import org.jetbrains.exposed.dao.EntityClass

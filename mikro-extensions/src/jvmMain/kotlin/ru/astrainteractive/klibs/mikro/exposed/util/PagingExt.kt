@@ -1,4 +1,4 @@
-package ru.astrainteractive.astralibs.exposed.util
+package ru.astrainteractive.klibs.mikro.exposed.util
 
 import org.jetbrains.exposed.sql.AbstractQuery
 

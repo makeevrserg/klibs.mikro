@@ -1,4 +1,4 @@
-package ru.astrainteractive.astralibs.exposed.dao
+package ru.astrainteractive.klibs.mikro.exposed.dao
 
 import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.dao.id.IdTable

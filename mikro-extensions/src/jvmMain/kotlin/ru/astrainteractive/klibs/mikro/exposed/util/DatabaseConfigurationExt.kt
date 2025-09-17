@@ -1,8 +1,8 @@
-package ru.astrainteractive.astralibs.exposed.util
+package ru.astrainteractive.klibs.mikro.exposed.util
 
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.DatabaseConfig
-import ru.astrainteractive.astralibs.exposed.model.DatabaseConfiguration
+import ru.astrainteractive.klibs.mikro.exposed.model.DatabaseConfiguration
 import kotlin.time.Duration.Companion.seconds
 
 /**
@@ -15,6 +15,7 @@ fun DatabaseConfiguration.getUrl(): String {
         is DatabaseConfiguration.H2 -> "jdbc:h2:${path}$stringArgument"
         is DatabaseConfiguration.SQLite -> "jdbc:sqlite:$path}$stringArgument"
         is DatabaseConfiguration.MySql -> "jdbc:mysql://$host:$port/${name}$stringArgument"
+        is DatabaseConfiguration.MariaDB -> "jdbc:mariadb://$host:$port/${name}$stringArgument"
     }
 }
 
@@ -48,6 +49,14 @@ fun DatabaseConfiguration.connect(
         is DatabaseConfiguration.SQLite -> Database.connect(
             url = getUrl(),
             driver = driver,
+            databaseConfig = databaseConfig,
+        )
+
+        is DatabaseConfiguration.MariaDB -> Database.connect(
+            url = getUrl(),
+            driver = driver,
+            user = user,
+            password = password,
             databaseConfig = databaseConfig,
         )
     }

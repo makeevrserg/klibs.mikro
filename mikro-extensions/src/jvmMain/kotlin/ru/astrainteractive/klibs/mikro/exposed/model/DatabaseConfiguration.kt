@@ -1,4 +1,4 @@
-package ru.astrainteractive.astralibs.exposed.model
+package ru.astrainteractive.klibs.mikro.exposed.model
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -85,6 +85,25 @@ sealed interface DatabaseConfiguration {
     data class SQLite(
         val path: String,
         override val driver: String = "org.sqlite.JDBC",
+        override val arguments: List<String> = emptyList()
+    ) : DatabaseConfiguration
+
+    /**
+     * Configuration for connecting to an SQLite database.
+     *
+     * @property path The path of the SQLite database file.
+     * @property driver The JDBC driver class name for SQLite.
+     * @property arguments Additional arguments to be passed to the database connection URL.
+     */
+    @SerialName("MariaDB")
+    @Serializable
+    data class MariaDB(
+        val host: String,
+        val port: Int,
+        val user: String,
+        val password: String,
+        val name: String,
+        override val driver: String = "org.mariadb.jdbc.Driver",
         override val arguments: List<String> = emptyList()
     ) : DatabaseConfiguration
 }
