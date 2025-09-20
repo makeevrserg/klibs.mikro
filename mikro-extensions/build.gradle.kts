@@ -6,7 +6,9 @@ import ru.astrainteractive.gradleplugin.property.extension.ModelPropertyValueExt
 plugins {
     kotlin("multiplatform")
     id("com.android.library")
+    alias(libs.plugins.kotlin.serialization)
 }
+
 kotlin {
     jvm()
     androidTarget {
