@@ -31,4 +31,14 @@ class JUtiltLogger(
     override fun debug(logMessage: () -> String) {
         logger.log(Level.ALL, logMessage)
     }
+
+    /**
+     * Set [JLogger.setUseParentHandlers] to false
+     *
+     * @return this [JUtiltLogger]
+     */
+    fun withoutParentHandlers(): JUtiltLogger {
+        logger.useParentHandlers = false
+        return this
+    }
 }
