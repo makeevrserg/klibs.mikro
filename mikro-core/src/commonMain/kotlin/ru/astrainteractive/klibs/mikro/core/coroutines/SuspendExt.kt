@@ -14,6 +14,7 @@ suspend fun awaitForCompletion(
 ) {
     while (currentCoroutineContext().isActive && !condition.invoke()) {
         val measure = measureTime { yield() }
+        if (delay == Duration.ZERO) continue
         if (measure < delay) delay(delay - measure)
     }
 }
