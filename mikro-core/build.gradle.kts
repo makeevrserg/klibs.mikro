@@ -11,6 +11,7 @@ kotlin {
         browser()
         nodejs()
     }
+    wasmJs()
     iosX64()
     iosArm64()
     iosSimulatorArm64()
@@ -38,6 +39,22 @@ kotlin {
 
         commonTest.dependencies {
             implementation(kotlin("test"))
+        }
+        val wasmJsMain by getting
+        val jsMain by getting
+        val webMain by getting
+
+        @Suppress("UnusedPrivateProperty")
+        val nonJsMain by creating {
+            this.dependsOn(commonMain.get())
+            sourceSets.toList()
+                .filter { sourceSet -> sourceSet.name.endsWith("Main") }
+                .filter { sourceSet -> sourceSet.name != wasmJsMain.name }
+                .filter { sourceSet -> sourceSet.name != jsMain.name }
+                .filter { sourceSet -> sourceSet.name != webMain.name }
+                .filter { sourceSet -> sourceSet.name != commonMain.name }
+                .onEach { sourceSet -> sourceSet.dependsOn(this) }
+                .toList()
         }
     }
 }

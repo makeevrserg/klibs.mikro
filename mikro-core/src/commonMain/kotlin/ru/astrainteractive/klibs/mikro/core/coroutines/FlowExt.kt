@@ -2,15 +2,20 @@ package ru.astrainteractive.klibs.mikro.core.coroutines
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.flow.transformLatest
+import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
 public fun <T> Flow<T>.onLatest(
@@ -49,3 +54,26 @@ inline fun <T, R> Flow<T>.mapCached(
         latest = current
     }.collect()
 }.flowOn(dispatcher).shareIn(scope, started, replay)
+
+fun <T> Flow<T>?.orEmpty(): Flow<T> = this ?: emptyFlow()
+
+/**
+ * Emits the first value from the flow, applies the given transform
+ * and ignores next values while the transform is still executing
+ *
+ * This is similar to collectLatest, but it doesn't end job when new
+ * value is emitted
+ */
+fun <T, K> Flow<T>.throttleFirst(transform: suspend (T) -> K): Flow<K> = channelFlow {
+    var job: Job? = null
+
+    collect { value ->
+        if (job?.isActive == true) return@collect
+        job = launch {
+            send(transform(value))
+        }
+    }
+    awaitClose {
+        job?.cancel()
+    }
+}
