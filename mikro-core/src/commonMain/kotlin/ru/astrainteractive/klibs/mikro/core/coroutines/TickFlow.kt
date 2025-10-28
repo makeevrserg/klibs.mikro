@@ -10,8 +10,12 @@ import kotlin.time.Duration
 /**
  * Tick every [duration]
  */
-class TickFlow(private val duration: Duration) : Flow<Unit> by flow(
+class TickFlow(
+    private val duration: Duration,
+    private val initialDelay: Duration = Duration.ZERO
+) : Flow<Unit> by flow(
     block = {
+        if (initialDelay != Duration.ZERO) delay(initialDelay)
         while (currentCoroutineContext().isActive) {
             emit(Unit)
             delay(duration)
