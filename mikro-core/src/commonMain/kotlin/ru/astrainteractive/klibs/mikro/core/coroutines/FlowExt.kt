@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.shareIn
@@ -56,6 +57,8 @@ inline fun <T, R> Flow<T>.mapCached(
 }.flowOn(dispatcher).shareIn(scope, started, replay)
 
 fun <T> Flow<T>?.orEmpty(): Flow<T> = this ?: emptyFlow()
+
+fun <T> Flow<T>?.orNullable(): Flow<T?> = this ?: flowOf(null)
 
 /**
  * Emits the first value from the flow, applies the given transform
