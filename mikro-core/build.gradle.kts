@@ -1,17 +1,25 @@
-import ru.astrainteractive.gradleplugin.property.extension.ModelPropertyValueExt.requireProjectInfo
-
 plugins {
     kotlin("multiplatform")
-    id("com.android.library")
 }
 kotlin {
     jvm()
-    androidTarget()
     js(IR) {
-        browser()
+        browser {
+            testTask {
+                enabled = false
+            }
+        }
         nodejs()
     }
-    wasmJs()
+    wasmJs {
+        browser {
+            testTask {
+                enabled = false
+            }
+        }
+        nodejs()
+        d8()
+    }
     iosX64()
     iosArm64()
     iosSimulatorArm64()
@@ -39,6 +47,7 @@ kotlin {
 
         commonTest.dependencies {
             implementation(kotlin("test"))
+            implementation(libs.kotlin.coroutines.test)
         }
         val wasmJsMain by getting
         val jsMain by getting
@@ -57,8 +66,4 @@ kotlin {
                 .toList()
         }
     }
-}
-
-android {
-    namespace = "${requireProjectInfo.group}.mikro.core"
 }
