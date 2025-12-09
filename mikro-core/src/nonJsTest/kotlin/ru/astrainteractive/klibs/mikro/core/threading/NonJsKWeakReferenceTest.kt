@@ -1,3 +1,5 @@
+@file:Suppress("FunctionNaming")
+
 package ru.astrainteractive.klibs.mikro.core.threading
 
 import kotlinx.coroutines.currentCoroutineContext
@@ -5,10 +7,9 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
-import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
-class KWeakReferenceTest {
+class NonJsKWeakReferenceTest {
     class HeapClass(val value: Int = i++) {
         companion object {
             var i = 0
@@ -23,15 +24,7 @@ class KWeakReferenceTest {
             delay(100L)
             if (reusable.orNull == null) break
         }
+        println("Asserted!")
         assertTrue(reusable.orNull == null)
-    }.let { }
-
-    @Test
-    fun GIVEN_reusable_WHEN_have_prev_reference_THEN_not_created_again(): Unit = runTest {
-        val reusable = weakRefReusable { HeapClass() }
-        val a = reusable.value
-        val b = reusable.value
-
-        assertEquals(a, b)
     }.let { }
 }

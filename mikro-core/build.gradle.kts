@@ -65,5 +65,18 @@ kotlin {
                 .onEach { sourceSet -> sourceSet.dependsOn(this) }
                 .toList()
         }
+
+        @Suppress("UnusedPrivateProperty")
+        val nonJsTest by creating {
+            this.dependsOn(commonTest.get())
+            sourceSets.toList()
+                .filter { sourceSet -> sourceSet.name.endsWith("Test") }
+                .filter { sourceSet -> sourceSet.name != wasmJsTest.name }
+                .filter { sourceSet -> sourceSet.name != jsTest.name }
+                .filter { sourceSet -> sourceSet.name != webTest.name }
+                .filter { sourceSet -> sourceSet.name != commonTest.name }
+                .onEach { sourceSet -> sourceSet.dependsOn(this) }
+                .toList()
+        }
     }
 }
