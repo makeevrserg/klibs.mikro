@@ -17,8 +17,8 @@ class KWeakReferenceTest {
 
     @Test
     fun GIVEN_reusable_WHEN_have_no_reference_THEN_should_be_garbage_collected(): Unit = runTest {
-        val reusable = Reusable { HeapClass() }
-        reusable.getValue()
+        val reusable = weakRefReusable { HeapClass() }
+        reusable.value
         while (currentCoroutineContext().isActive) {
             delay(100L)
             if (reusable.orNull == null) break
@@ -28,9 +28,9 @@ class KWeakReferenceTest {
 
     @Test
     fun GIVEN_reusable_WHEN_have_prev_reference_THEN_not_created_again(): Unit = runTest {
-        val reusable = Reusable { HeapClass() }
-        val a = reusable.getValue()
-        val b = reusable.getValue()
+        val reusable = weakRefReusable { HeapClass() }
+        val a = reusable.value
+        val b = reusable.value
 
         assertEquals(a, b)
     }.let { }
