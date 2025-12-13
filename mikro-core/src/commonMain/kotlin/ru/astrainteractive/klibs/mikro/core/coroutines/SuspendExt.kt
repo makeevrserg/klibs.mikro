@@ -18,3 +18,7 @@ suspend fun awaitForCompletion(
         if (measure < delay) delay(delay - measure)
     }
 }
+
+suspend fun Suspender.awaitNotSuspended(delay: Duration = 50.milliseconds) {
+    awaitForCompletion(delay) { !isSuspended() }
+}

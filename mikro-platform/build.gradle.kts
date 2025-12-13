@@ -11,7 +11,11 @@ kotlin {
         publishLibraryVariantsGroupedByFlavor = true
     }
     js(IR) {
-        browser()
+        browser {
+            testTask {
+                enabled = false
+            }
+        }
         nodejs()
     }
     iosX64()

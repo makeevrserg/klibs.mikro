@@ -2,7 +2,6 @@ package ru.astrainteractive.klibs.mikro.core.coroutines
 
 import kotlin.time.Clock
 import kotlin.time.Duration
-import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 
@@ -53,8 +52,4 @@ class KotlinTimeSuspender(
     override fun setSuspended() {
         lastSuspendedAt = clock.now()
     }
-}
-
-suspend fun Suspender.awaitNotSuspended(delay: Duration = 50.milliseconds) {
-    awaitForCompletion(delay) { !isSuspended() }
 }
