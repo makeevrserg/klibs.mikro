@@ -1,6 +1,7 @@
 package ru.astrainteractive.klibs.mikro.core.threading
 
 import kotlinx.coroutines.test.runTest
+import ru.astrainteractive.klibs.mikro.core.reuse.weakRefReusable
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

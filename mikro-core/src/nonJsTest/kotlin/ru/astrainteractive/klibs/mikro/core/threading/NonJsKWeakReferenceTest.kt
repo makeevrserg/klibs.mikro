@@ -6,6 +6,7 @@ import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.test.runTest
+import ru.astrainteractive.klibs.mikro.core.reuse.weakRefReusable
 import kotlin.test.Test
 import kotlin.test.assertTrue
 

@@ -1,4 +1,4 @@
-package ru.astrainteractive.klibs.mikro.core.threading
+package ru.astrainteractive.klibs.mikro.core.ref
 
 import kotlin.js.ExperimentalWasmJsInterop
 import kotlin.js.JsAny

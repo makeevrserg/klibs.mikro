@@ -1,4 +1,4 @@
-package ru.astrainteractive.klibs.mikro.core.threading
+package ru.astrainteractive.klibs.mikro.core.ref
 
 import kotlin.experimental.ExperimentalNativeApi
 import kotlin.native.ref.WeakReference

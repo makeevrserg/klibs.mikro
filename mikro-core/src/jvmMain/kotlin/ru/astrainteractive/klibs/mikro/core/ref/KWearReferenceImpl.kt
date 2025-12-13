@@ -1,4 +1,4 @@
-package ru.astrainteractive.klibs.mikro.core.threading
+package ru.astrainteractive.klibs.mikro.core.ref
 
 import java.lang.ref.Reference
 import java.lang.ref.WeakReference
