@@ -41,10 +41,6 @@ kotlin {
             implementation(libs.kotlin.coroutines.core)
         }
 
-        jvmMain.dependencies {
-            implementation(libs.logback.classic)
-        }
-
         commonTest.dependencies {
             implementation(kotlin("test"))
             implementation(libs.kotlin.coroutines.test)
