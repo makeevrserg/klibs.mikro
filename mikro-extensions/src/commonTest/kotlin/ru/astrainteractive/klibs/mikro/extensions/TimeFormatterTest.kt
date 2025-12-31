@@ -1,9 +1,9 @@
 package ru.astrainteractive.klibs.mikro.extensions
 
-import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.time.Instant
 
 class TimeFormatterTest {
     private val timeFormatter: TimeFormatter

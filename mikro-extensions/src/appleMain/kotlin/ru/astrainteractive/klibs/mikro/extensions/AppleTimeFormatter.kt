@@ -1,14 +1,13 @@
 package ru.astrainteractive.klibs.mikro.extensions
 
-import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toNSDate
 import kotlinx.datetime.toNSTimeZone
-import kotlinx.datetime.toStdlibInstant
 import platform.Foundation.NSDateFormatter
 import platform.Foundation.NSLocale
 import platform.Foundation.currentLocale
 import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 
 /**
  * Multiplatform ios/android time formatter
@@ -23,7 +22,7 @@ class AppleTimeFormatter(
             this.timeZone = timeZone.toNSTimeZone()
             this.locale = this@AppleTimeFormatter.locale
         }
-        val nsDate = instant.toStdlibInstant().toNSDate()
+        val nsDate = instant.toNSDate()
         return dateFormatter.stringFromDate(nsDate)
     }
 }
