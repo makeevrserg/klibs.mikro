@@ -1,15 +1,14 @@
-import ru.astrainteractive.gradleplugin.property.extension.ModelPropertyValueExt.requireProjectInfo
-
 plugins {
     kotlin("multiplatform")
-    id("com.android.library")
+    id("com.android.kotlin.multiplatform.library")
+    id("ru.astrainteractive.gradleplugin.java.version")
+    id("ru.astrainteractive.gradleplugin.android.sdk")
+    id("ru.astrainteractive.gradleplugin.publication")
+    id("ru.astrainteractive.gradleplugin.android.namespace")
 }
 kotlin {
     jvm()
-    androidTarget {
-        publishLibraryVariants("release", "debug")
-        publishLibraryVariantsGroupedByFlavor = true
-    }
+    androidLibrary {}
     js(IR) {
         browser {
             testTask {
@@ -41,8 +40,4 @@ kotlin {
             implementation(kotlin("test"))
         }
     }
-}
-
-android {
-    namespace = "${requireProjectInfo.group}.mikro.platform"
 }
