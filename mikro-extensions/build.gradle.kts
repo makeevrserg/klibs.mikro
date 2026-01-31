@@ -1,20 +1,17 @@
 @file:Suppress("UnusedPrivateMember")
 
-import ru.astrainteractive.gradleplugin.property.extension.ModelPropertyValueExt.requireProjectInfo
-
-
 plugins {
     kotlin("multiplatform")
-    id("com.android.library")
+    id("com.android.kotlin.multiplatform.library")
     alias(libs.plugins.kotlin.serialization)
+    id("ru.astrainteractive.gradleplugin.android.sdk")
+    id("ru.astrainteractive.gradleplugin.publication")
+    id("ru.astrainteractive.gradleplugin.android.namespace")
 }
 
 kotlin {
     jvm()
-    androidTarget {
-        publishLibraryVariants("release", "debug")
-        publishLibraryVariantsGroupedByFlavor = true
-    }
+    androidLibrary {}
     iosX64()
     iosArm64()
     iosSimulatorArm64()
@@ -51,8 +48,4 @@ kotlin {
             jvmTest.get().dependsOn(this)
         }
     }
-}
-
-android {
-    namespace = "${requireProjectInfo.group}.mikro.extensions"
 }
