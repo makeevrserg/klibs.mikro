@@ -1,6 +1,6 @@
 [versions]
 decompose = "3.4.0"
-exposed = "0.61.0"
+exposed = "1.0.0"
 gradle-android = "9.0.0"
 klibs-gradleplugin = "1.14.0"
 kotlin-coroutines-core = "1.10.2"
