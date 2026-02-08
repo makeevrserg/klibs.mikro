@@ -3,17 +3,17 @@ package ru.astrainteractive.klibs.mikro.core.coroutines
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.flow.transformLatest
 import kotlinx.coroutines.launch
@@ -24,6 +24,17 @@ public fun <T> Flow<T>.onLatest(
 ): Flow<T> = transformLatest { value ->
     action(value)
     return@transformLatest emit(value)
+}
+
+inline fun <T, R> Flow<T>.mapCached(
+    crossinline transform: suspend (value: T, previous: R?) -> R
+): Flow<R> = flow {
+    var latest: R? = null
+    this@mapCached.collect {
+        val current = transform.invoke(it, latest)
+        latest = current
+        emit(current)
+    }
 }
 
 /**
@@ -47,18 +58,15 @@ inline fun <T, R> Flow<T>.mapCached(
     dispatcher: CoroutineContext = Dispatchers.Unconfined,
     replay: Int = 1,
     crossinline transform: suspend (value: T, previous: R?) -> R
-): SharedFlow<R> = flow {
-    var latest: R? = null
-    this@mapCached.map {
-        val current = transform.invoke(it, latest)
-        emit(current)
-        latest = current
-    }.collect()
-}.flowOn(dispatcher).shareIn(scope, started, replay)
+): SharedFlow<R> = mapCached(transform)
+    .flowOn(dispatcher)
+    .shareIn(scope, started, replay)
 
 fun <T> Flow<T>?.orEmpty(): Flow<T> = this ?: emptyFlow()
 
 fun <T> Flow<T>?.orNullable(): Flow<T?> = this ?: flowOf(null)
+
+fun <T> Flow<T>.merge(flow: Flow<T>): Flow<T> = listOf(this, flow).merge()
 
 /**
  * Emits the first value from the flow, applies the given transform
@@ -67,16 +75,16 @@ fun <T> Flow<T>?.orNullable(): Flow<T?> = this ?: flowOf(null)
  * This is similar to collectLatest, but it doesn't end job when new
  * value is emitted
  */
-fun <T, K> Flow<T>.throttleFirst(transform: suspend (T) -> K): Flow<K> = channelFlow {
+fun <T, K> Flow<T>.throttleLatest(
+    transform: suspend (T) -> K
+): Flow<K> = channelFlow {
+    val scope = this
     var job: Job? = null
 
-    collect { value ->
-        if (job?.isActive == true) return@collect
-        job = launch {
+    collectLatest { value ->
+        job?.join()
+        job = scope.launch {
             send(transform(value))
         }
-    }
-    awaitClose {
-        job?.cancel()
     }
 }
