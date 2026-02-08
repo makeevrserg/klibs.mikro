@@ -8,6 +8,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
+import ru.astrainteractive.klibs.mikro.core.logging.Logger
+import ru.astrainteractive.klibs.mikro.core.logging.StubLogger
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
@@ -26,7 +28,10 @@ fun CoroutineScope.launch(
     }
 )
 
-fun CoroutineScope.launchOnCompletion(block: suspend () -> Unit) {
+fun CoroutineScope.launchOnCompletion(
+    logger: Logger = StubLogger,
+    block: suspend () -> Unit
+) {
     launch(start = CoroutineStart.UNDISPATCHED) {
         try {
             awaitCancellation()
@@ -35,7 +40,7 @@ fun CoroutineScope.launchOnCompletion(block: suspend () -> Unit) {
                 try {
                     block.invoke()
                 } catch (t: Throwable) {
-                    error(t) { "#launchOnCompletion 7 could not execute block" }
+                    logger.error(t) { "#launchOnCompletion 7 could not execute block" }
                 }
             }
         }
