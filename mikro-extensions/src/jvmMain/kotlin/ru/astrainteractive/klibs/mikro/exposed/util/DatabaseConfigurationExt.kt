@@ -1,7 +1,10 @@
 package ru.astrainteractive.klibs.mikro.exposed.util
 
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.callbackFlow
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.DatabaseConfig
+import org.jetbrains.exposed.sql.transactions.TransactionManager
 import ru.astrainteractive.klibs.mikro.exposed.model.DatabaseConfiguration
 import kotlin.time.Duration.Companion.seconds
 
@@ -59,5 +62,30 @@ fun DatabaseConfiguration.connect(
             password = password,
             databaseConfig = databaseConfig,
         )
+    }
+}
+
+/**
+ * Establishes a connection to the database and exposes it as a [callbackFlow].
+ *
+ * The connection is created when the flow is collected and automatically closed
+ * when the flow collection is canceled. On cancellation, the underlying JDBC connection
+ * is closed and the database is unregistered from the [TransactionManager].
+ *
+ * @param databaseConfig Optional configuration for the database connection.
+ * @return A [callbackFlow] emitting the [Database] object representing the established connection.
+ */
+fun DatabaseConfiguration.connectAsFlow(
+    databaseConfig: DatabaseConfig? = DatabaseConfig {
+        defaultMinRetryDelay = 5.seconds.inWholeMilliseconds
+        defaultMaxRetryDelay = 30.seconds.inWholeMilliseconds
+    }
+) = callbackFlow {
+    val configuration = this@connectAsFlow
+    val database = configuration.connect(databaseConfig)
+    send(database)
+    awaitClose {
+        database.connector.invoke().close()
+        TransactionManager.closeAndUnregister(database)
     }
 }
