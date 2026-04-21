@@ -2,9 +2,9 @@ package ru.astrainteractive.klibs.mikro.exposed.util
 
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
-import org.jetbrains.exposed.sql.Database
-import org.jetbrains.exposed.sql.DatabaseConfig
-import org.jetbrains.exposed.sql.transactions.TransactionManager
+import org.jetbrains.exposed.v1.core.DatabaseConfig
+import org.jetbrains.exposed.v1.jdbc.Database
+import org.jetbrains.exposed.v1.jdbc.transactions.TransactionManager
 import ru.astrainteractive.klibs.mikro.exposed.model.DatabaseConfiguration
 import kotlin.time.Duration.Companion.seconds
 

@@ -41,6 +41,7 @@ object DurationSerializer : KSerializer<Duration> {
         return toDuration(string)
     }
 
+    @Suppress("MagicNumber")
     fun fromDuration(duration: Duration): String {
         return duration.toComponents { days, hours, minutes, seconds, _ ->
             buildString {
@@ -79,13 +80,16 @@ object DurationSerializer : KSerializer<Duration> {
         val durationList = split.map { part ->
             val delimiter = Delimiter.entries
                 .firstOrNull { delimiter -> part.contains(delimiter.value) }
-                ?: error("Wrong usage on argument. Could not determine delimiter $value. Should be as 1y2mo3w4d6h10m30s")
+                ?: error(
+                    "Wrong usage on argument. Could not determine delimiter $value. Should be as 1y2mo3w4d6h10m30s"
+                )
 
             val intAmount = part
                 .replace(delimiter.value, "")
                 .toIntOrNull()
                 ?: error("Wrong usage on argument. Could not convert to int $value. Should be as 1y2mo3w4d6h10m30s")
 
+            @Suppress("MagicNumber")
             when (delimiter) {
                 Delimiter.W -> (intAmount * 7).days
                 Delimiter.D -> intAmount.days

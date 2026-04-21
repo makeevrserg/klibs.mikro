@@ -30,6 +30,7 @@ kotlin {
         }
         jvmMain.dependencies {
             implementation(libs.exposed.core)
+            implementation(libs.exposed.jdbc)
             implementation(libs.exposed.dao)
         }
         create("sharedJvmMain") {

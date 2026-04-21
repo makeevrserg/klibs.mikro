@@ -88,6 +88,7 @@ class JUtilFileLogger(
             lastFile.createNewFile()
             return lastFile
         }
+        @Suppress("MagicNumber")
         val fileSizeMegaBytes = lastFile.length() / 1024f / 1024f
         return if (fileSizeMegaBytes > MAX_FILE_SIZE_MB) {
             val newFile = File(folder, "$data-$lastIndex.log")
