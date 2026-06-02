@@ -4,7 +4,7 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 
-internal class MutexLock : Lock {
+internal class MutexLockImpl : Lock {
     private val mutex = Mutex()
     override fun <T> synchronized(block: () -> T): T {
         return runBlocking {

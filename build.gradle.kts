@@ -12,6 +12,7 @@ plugins {
     alias(libs.plugins.klibs.gradle.publication) apply false
     alias(libs.plugins.klibs.gradle.rootinfo) apply false
     alias(libs.plugins.kotlin.multiplatform) apply false
+    alias(libs.plugins.kotlin.serialization) apply false
 }
 
 apply(plugin = "ru.astrainteractive.gradleplugin.dokka.root")

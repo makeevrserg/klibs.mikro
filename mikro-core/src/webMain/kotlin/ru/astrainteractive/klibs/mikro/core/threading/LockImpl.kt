@@ -1,5 +1,5 @@
 package ru.astrainteractive.klibs.mikro.core.threading
 
-actual fun Lock(): Lock {
+actual fun MutexLock(): Lock {
     return JsLock()
 }

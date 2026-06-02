@@ -1,23 +1,22 @@
 plugins {
-    kotlin("multiplatform")
+    id("org.jetbrains.kotlin.multiplatform")
+    id("org.jetbrains.kotlin.plugin.serialization")
     id("ru.astrainteractive.gradleplugin.java.version")
-    id("ru.astrainteractive.gradleplugin.android.sdk")
     id("ru.astrainteractive.gradleplugin.publication")
 }
 kotlin {
     jvm()
-    iosX64()
     iosArm64()
     iosSimulatorArm64()
-    tvosX64()
+    iosX64()
+    macosArm64()
+    macosX64()
     tvosArm64()
     tvosSimulatorArm64()
-    watchosX64()
+    tvosX64()
     watchosArm64()
     watchosSimulatorArm64()
-    macosX64()
-    macosArm64()
-
+    watchosX64()
     applyDefaultHierarchyTemplate()
 
     sourceSets {

@@ -2,11 +2,11 @@ package ru.astrainteractive.klibs.mikro.core.reuse
 
 import ru.astrainteractive.klibs.mikro.core.ref.KWeakReference
 import ru.astrainteractive.klibs.mikro.core.ref.weakReference
-import ru.astrainteractive.klibs.mikro.core.threading.Lock
+import ru.astrainteractive.klibs.mikro.core.threading.MutexLock
 
 private class WeakRefReusable<T : Any>(private val factory: () -> T) : Reusable<T> {
 
-    private val lock = Lock()
+    private val lock = MutexLock()
 
     var ref: KWeakReference<T>? = null
 

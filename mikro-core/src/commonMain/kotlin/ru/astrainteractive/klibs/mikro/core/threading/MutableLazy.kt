@@ -13,7 +13,7 @@ internal class MutableLazy<T>(initializer: () -> T) : Lazy<T> {
 
     object UNINITIALIZED
 
-    private val lock = Lock()
+    private val lock = MutexLock()
 
     private var _value: Any? = UNINITIALIZED
 

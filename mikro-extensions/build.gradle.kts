@@ -1,22 +1,33 @@
 @file:Suppress("UnusedPrivateMember")
 
 plugins {
-    kotlin("multiplatform")
     id("com.android.kotlin.multiplatform.library")
-    alias(libs.plugins.kotlin.serialization)
-    id("ru.astrainteractive.gradleplugin.android.sdk")
-    id("ru.astrainteractive.gradleplugin.publication")
+    id("org.jetbrains.kotlin.multiplatform")
+    id("org.jetbrains.kotlin.plugin.serialization")
     id("ru.astrainteractive.gradleplugin.android.namespace")
+    id("ru.astrainteractive.gradleplugin.android.sdk")
+    id("ru.astrainteractive.gradleplugin.java.version")
+    id("ru.astrainteractive.gradleplugin.publication")
 }
-
 kotlin {
+    android {}
     jvm()
-    androidLibrary {}
-    iosX64()
+    js(IR) { browser { testTask { enabled = false } }; nodejs(); }
+    wasmJs { browser { testTask { enabled = false } }; nodejs(); d8() }
     iosArm64()
     iosSimulatorArm64()
-    macosX64()
-    macosArm64()
+    iosX64()
+//    linuxArm64()
+//    linuxX64()
+//    macosArm64()
+//    macosX64()
+//    mingwX64()
+//    tvosArm64()
+//    tvosSimulatorArm64()
+//    tvosX64()
+//    watchosArm64()
+//    watchosSimulatorArm64()
+//    watchosX64()
     applyDefaultHierarchyTemplate()
 
     sourceSets {

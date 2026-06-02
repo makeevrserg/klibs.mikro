@@ -38,7 +38,7 @@ interface Suspender {
 }
 
 @OptIn(ExperimentalTime::class)
-class KotlinTimeSuspender(
+class ClockSuspender(
     private val duration: Duration,
     private val clock: Clock = Clock.System
 ) : Suspender {

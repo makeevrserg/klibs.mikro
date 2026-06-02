@@ -40,7 +40,7 @@ fun CoroutineScope.launchOnCompletion(
                 try {
                     block.invoke()
                 } catch (t: Throwable) {
-                    logger.error(t) { "#launchOnCompletion 7 could not execute block" }
+                    logger.error(t) { "#launchOnCompletion could not execute block" }
                 }
             }
         }
