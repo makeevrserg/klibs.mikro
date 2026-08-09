@@ -14,7 +14,7 @@ import kotlinx.coroutines.CancellationException
  *
  * @throws CancellationException if this [Result] failed with one.
  */
-private fun <T> Result<T>.propagateCancellationException(): Result<T> {
+public fun <T> Result<T>.propagateCancellationException(): Result<T> {
     val t = exceptionOrNull() ?: return this
     if (t !is CancellationException) return this
     throw t

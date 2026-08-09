@@ -48,7 +48,7 @@ object DurationSerializer : KSerializer<Duration> {
                 if (days >= 7) {
                     append("${days / 7}${Delimiter.W.value}")
                 }
-                append("${days % 7}${Delimiter.W.value}")
+                append("${days % 7}${Delimiter.D.value}")
                 if (hours > 0) {
                     append("${hours}${Delimiter.H.value}")
                 }
