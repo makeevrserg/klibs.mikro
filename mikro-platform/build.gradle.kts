@@ -12,8 +12,15 @@ plugins {
 kotlin {
     android {}
     jvm()
-    js(IR) { browser { testTask { enabled = false } }; nodejs(); }
-    wasmJs { browser { testTask { enabled = false } }; nodejs(); d8() }
+    js(IR) {
+        browser { testTask { enabled = false } }
+        nodejs()
+    }
+    wasmJs {
+        browser { testTask { enabled = false } }
+        nodejs()
+        d8()
+    }
     iosArm64()
     iosSimulatorArm64()
     iosX64()
