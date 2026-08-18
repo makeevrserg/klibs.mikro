@@ -1,9 +1,9 @@
+**/build
+.claude
 .gradle
 .idea
 .kotlin
-build
-mikro-core/build
-mikro-platform/build
-mikro-locale/build
+AGENTS.md
+CLAUDE.md
+kotlin-js-store
 local.properties
-kotlin-js-store/*
