@@ -2,12 +2,12 @@
 decompose = "3.5.0" # https://github.com/arkivanov/decompose
 exposed = "1.5.0" # https://github.com/jetbrains/exposed
 gradle-android = "9.4.1" # https://developer.android.com/build/releases/about-agp
-klibs-gradleplugin = "2.7.2" # https://github.com/makeevrserg/gradle-plugin
+klibs-gradleplugin = "2.8.1" # https://github.com/makeevrserg/gradle-plugin
 kotlin-coroutines-core = "1.11.0" # https://github.com/Kotlin/kotlinx.coroutines
 kotlin-version = "2.4.20" # https://github.com/jetbrains/kotlin
 kotlinx-datetime = "0.8.0" # https://github.com/Kotlin/kotlinx-datetime
 kotlinx-serialization = "1.11.0" # https://github.com/Kotlin/kotlinx.serialization
-moko-resources = "0.27.0" # https://github.com/icerockdev/moko-resources
+moko-resources = "0.27.1" # https://github.com/icerockdev/moko-resources
 
 [libraries]
 arkivanov-decompose = { module = "com.arkivanov.decompose:decompose", version.ref = "decompose" }
