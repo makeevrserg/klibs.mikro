@@ -2,6 +2,7 @@
 decompose = "3.5.0" # https://github.com/arkivanov/decompose
 exposed = "1.5.0" # https://github.com/jetbrains/exposed
 gradle-android = "9.4.1" # https://developer.android.com/build/releases/about-agp
+h2 = "2.5.252" # https://github.com/h2database/h2database
 klibs-gradleplugin = "2.7.2" # https://github.com/makeevrserg/gradle-plugin
 kotlin-coroutines-core = "1.11.0" # https://github.com/Kotlin/kotlinx.coroutines
 kotlin-version = "2.4.20" # https://github.com/jetbrains/kotlin
@@ -14,6 +15,7 @@ arkivanov-decompose = { module = "com.arkivanov.decompose:decompose", version.re
 exposed-core = { module = "org.jetbrains.exposed:exposed-core", version.ref = "exposed" }
 exposed-dao = { module = "org.jetbrains.exposed:exposed-dao", version.ref = "exposed" }
 exposed-jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "exposed" }
+h2 = { module = "com.h2database:h2", version.ref = "h2" }
 kotlin-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlin-coroutines-core" }
 kotlin-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlin-coroutines-core" }
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }

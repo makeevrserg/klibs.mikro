@@ -63,6 +63,10 @@ kotlin {
             implementation(kotlin("test"))
             implementation(libs.kotlinx.serialization.json)
         }
+        jvmTest.dependencies {
+            implementation(libs.kotlin.coroutines.test)
+            implementation(libs.h2)
+        }
 
         create("sharedJvmTest") {
             this.dependsOn(commonTest.get())

@@ -69,8 +69,8 @@ fun DatabaseConfiguration.connect(
  * Establishes a connection to the database and exposes it as a [callbackFlow].
  *
  * The connection is created when the flow is collected and automatically closed
- * when the flow collection is canceled. On cancellation, the underlying JDBC connection
- * is closed and the database is unregistered from the [TransactionManager].
+ * when the flow collection is canceled. When the collection ends, the database
+ * is unregistered from the [TransactionManager].
  *
  * @param databaseConfig Optional configuration for the database connection.
  * @return A [callbackFlow] emitting the [Database] object representing the established connection.
@@ -83,9 +83,10 @@ fun DatabaseConfiguration.connectAsFlow(
 ) = callbackFlow {
     val configuration = this@connectAsFlow
     val database = configuration.connect(databaseConfig)
-    send(database)
-    awaitClose {
-        database.connector.invoke().close()
+    try {
+        send(database)
+        awaitClose()
+    } finally {
         TransactionManager.closeAndUnregister(database)
     }
 }
