@@ -16,7 +16,7 @@ import kotlin.time.Duration.Companion.seconds
 fun DatabaseConfiguration.getUrl(): String {
     return when (this) {
         is DatabaseConfiguration.H2 -> "jdbc:h2:${path}$stringArgument"
-        is DatabaseConfiguration.SQLite -> "jdbc:sqlite:$path}$stringArgument"
+        is DatabaseConfiguration.SQLite -> "jdbc:sqlite:${path}$stringArgument"
         is DatabaseConfiguration.MySql -> "jdbc:mysql://$host:$port/${name}$stringArgument"
         is DatabaseConfiguration.MariaDB -> "jdbc:mariadb://$host:$port/${name}$stringArgument"
     }

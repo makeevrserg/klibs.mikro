@@ -17,6 +17,23 @@ class DatabaseConfigurationExtTest {
     private val inMemoryConfiguration = DatabaseConfiguration.H2(path = "mem:connect-as-flow")
 
     @Test
+    fun GIVEN_sqlite_configuration_WHEN_url_is_built_THEN_url_ends_with_path() {
+        val configuration = DatabaseConfiguration.SQLite(path = "/data/bridge.db")
+
+        assertEquals("jdbc:sqlite:/data/bridge.db", configuration.getUrl())
+    }
+
+    @Test
+    fun GIVEN_sqlite_configuration_with_arguments_WHEN_url_is_built_THEN_arguments_follow_path() {
+        val configuration = DatabaseConfiguration.SQLite(
+            path = "/data/bridge.db",
+            arguments = listOf("journal_mode=WAL", "busy_timeout=5000")
+        )
+
+        assertEquals("jdbc:sqlite:/data/bridge.db?journal_mode=WAL&busy_timeout=5000", configuration.getUrl())
+    }
+
+    @Test
     fun GIVEN_collection_is_active_WHEN_database_is_emitted_THEN_database_is_registered() = runTest {
         inMemoryConfiguration.connectAsFlow()
             .take(1)
