@@ -6,10 +6,15 @@ plugins {
     id("ru.astrainteractive.gradleplugin.android.sdk")
     id("ru.astrainteractive.gradleplugin.java.version")
     id("ru.astrainteractive.gradleplugin.publication")
-    id("ru.astrainteractive.gradleplugin.detekt")
+    id("ru.astrainteractive.klibs.rules.gradle.linter")
     id("ru.astrainteractive.gradleplugin.rootinfo")
 }
+linter {
+    unitKind.set("library")
+    rootPackage.set("ru.astrainteractive.klibs.mikro.core")
+}
 kotlin {
+    explicitApi()
     android {}
     jvm()
     js(IR) {
@@ -76,4 +81,8 @@ kotlin {
                 .toList()
         }
     }
+}
+
+tasks.withType<dev.detekt.gradle.Detekt>().configureEach {
+    freeCompilerArgs.add("-Xexplicit-api=strict")
 }

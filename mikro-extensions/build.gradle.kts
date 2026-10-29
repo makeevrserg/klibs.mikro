@@ -8,10 +8,15 @@ plugins {
     id("ru.astrainteractive.gradleplugin.android.sdk")
     id("ru.astrainteractive.gradleplugin.java.version")
     id("ru.astrainteractive.gradleplugin.publication")
-    id("ru.astrainteractive.gradleplugin.detekt")
+    id("ru.astrainteractive.klibs.rules.gradle.linter")
     id("ru.astrainteractive.gradleplugin.rootinfo")
 }
+linter {
+    unitKind.set("library")
+    rootPackage.set("ru.astrainteractive.klibs.mikro")
+}
 kotlin {
+    explicitApi()
     android {}
     jvm()
     js(IR) {
@@ -68,10 +73,34 @@ kotlin {
             implementation(libs.h2)
         }
 
-        create("sharedJvmTest") {
+        val sharedJvmTest = create("sharedJvmTest") {
             this.dependsOn(commonTest.get())
             androidUnitTest.get().dependsOn(this)
             jvmTest.get().dependsOn(this)
+        }
+        create("nonJsTest") {
+            this.dependsOn(commonTest.get())
+            appleTest.get().dependsOn(this)
+            sharedJvmTest.dependsOn(this)
+        }
+    }
+}
+
+tasks.withType<dev.detekt.gradle.Detekt>().configureEach {
+    freeCompilerArgs.add("-Xexplicit-api=strict")
+}
+
+tasks.named<org.jetbrains.kotlin.gradle.targets.js.testing.KotlinJsTest>("wasmJsD8Test") {
+    val jsJoda = rootProject.layout.buildDirectory.file("js/node_modules/@js-joda/core/dist/js-joda.esm.js")
+    onTestFrameworkSet {
+        val d8WorkingDir = workingDir
+        doFirst {
+            // D8 cannot resolve the bare @js-joda/core import emitted for kotlinx-datetime.
+            val outputDirectory = d8WorkingDir.get().asFile
+            val importObject = outputDirectory.listFiles().single { file -> file.name.endsWith(".import-object.mjs") }
+            jsJoda.get().asFile.copyTo(outputDirectory.resolve("js-joda.esm.js"), overwrite = true)
+            val importText = importObject.readText().replace("from '@js-joda/core'", "from './js-joda.esm.js'")
+            importObject.writeText(importText)
         }
     }
 }

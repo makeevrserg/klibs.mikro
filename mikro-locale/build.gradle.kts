@@ -3,10 +3,15 @@ plugins {
     id("org.jetbrains.kotlin.plugin.serialization")
     id("ru.astrainteractive.gradleplugin.java.version")
     id("ru.astrainteractive.gradleplugin.publication")
-    id("ru.astrainteractive.gradleplugin.detekt")
+    id("ru.astrainteractive.klibs.rules.gradle.linter")
     id("ru.astrainteractive.gradleplugin.rootinfo")
 }
+linter {
+    unitKind.set("library")
+    rootPackage.set("ru.astrainteractive.klibs.locale")
+}
 kotlin {
+    explicitApi()
     jvm()
     iosArm64()
     iosSimulatorArm64()
@@ -30,4 +35,8 @@ kotlin {
             implementation(kotlin("test"))
         }
     }
+}
+
+tasks.withType<dev.detekt.gradle.Detekt>().configureEach {
+    freeCompilerArgs.add("-Xexplicit-api=strict")
 }
