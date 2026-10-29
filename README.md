@@ -47,6 +47,14 @@ implementation("ru.astrainteractive.klibs:mikro-validation:<version>")
 
 ---
 
+## Library API migration
+
+Public declarations now use `api`, `model`, and `util` packages, with implementations in role-specific packages. Update imports in every module. Validation contracts live in `ru.astrainteractive.klibs.mikro.validation.api`, results in `ru.astrainteractive.klibs.mikro.validation.model`, and implementations in `ru.astrainteractive.klibs.mikro.validation.validator`; `ValidationContextImpl` is now `DefaultValidationContext`.
+
+`mapCached` is now `toCachedFlow`, `mapStateFlow` is now `toStateFlow`, and `DatabaseConfiguration.getUrl` is now `toJdbcUrl`. `awaitForCompletion` names its duration parameter `delayDuration`, and `launchOnCompletion` now requires a `Logger` argument. `FakeComponentContext` is available only in test sources.
+
+---
+
 ## 💜 Support Us
 
 If our projects help you, consider supporting their development.

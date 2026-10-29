@@ -12,17 +12,17 @@ import kotlinx.serialization.Transient
  * to establish a connection to the respective database.
  */
 @Serializable
-sealed interface DatabaseConfiguration {
+public sealed interface DatabaseConfiguration {
 
     /**
      * The JDBC driver class name for the database.
      */
-    val driver: String
+    public val driver: String
 
     /**
      * Additional arguments to be passed to the database connection URL.
      */
-    val arguments: List<String>
+    public val arguments: List<String>
 
     /**
      * A string representation of the arguments for the database connection URL.
@@ -31,7 +31,7 @@ sealed interface DatabaseConfiguration {
      * If there are no arguments, it returns an empty string.
      */
     @Transient
-    val stringArgument: String
+    public val stringArgument: String
         get() = if (arguments.isNotEmpty()) arguments.joinToString(separator = "&", prefix = "?") else ""
 
     /**
@@ -48,12 +48,12 @@ sealed interface DatabaseConfiguration {
     @SerialName("MySql")
     @Serializable
     @Suppress("LongParameterList")
-    class MySql(
-        val host: String,
-        val port: Int,
-        val user: String,
-        val password: String,
-        val name: String,
+    public class MySql(
+        public val host: String,
+        public val port: Int,
+        public val user: String,
+        public val password: String,
+        public val name: String,
         override val driver: String = "com.mysql.cj.jdbc.Driver",
         override val arguments: List<String> = emptyList()
     ) : DatabaseConfiguration
@@ -67,8 +67,8 @@ sealed interface DatabaseConfiguration {
      */
     @SerialName("H2")
     @Serializable
-    data class H2(
-        val path: String,
+    public data class H2(
+        public val path: String,
         override val driver: String = "org.h2.Driver",
         override val arguments: List<String> = emptyList()
     ) : DatabaseConfiguration
@@ -82,8 +82,8 @@ sealed interface DatabaseConfiguration {
      */
     @SerialName("SQLite")
     @Serializable
-    data class SQLite(
-        val path: String,
+    public data class SQLite(
+        public val path: String,
         override val driver: String = "org.sqlite.JDBC",
         override val arguments: List<String> = emptyList()
     ) : DatabaseConfiguration
@@ -97,12 +97,12 @@ sealed interface DatabaseConfiguration {
      */
     @SerialName("MariaDB")
     @Serializable
-    data class MariaDB(
-        val host: String,
-        val port: Int,
-        val user: String,
-        val password: String,
-        val name: String,
+    public data class MariaDB(
+        public val host: String,
+        public val port: Int,
+        public val user: String,
+        public val password: String,
+        public val name: String,
         override val driver: String = "org.mariadb.jdbc.Driver",
         override val arguments: List<String> = emptyList()
     ) : DatabaseConfiguration

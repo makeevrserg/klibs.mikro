@@ -31,12 +31,12 @@ class EnumExtTest {
     }
 
     @Test
-    fun GIVEN_offset_equal_to_size_WHEN_addIndex_THEN_returns_same_value() {
+    fun GIVEN_offset_equal_to_size_WHEN_add_index_THEN_returns_same_value() {
         assertEquals(Direction.NORTH, Direction.NORTH.addIndex(values.size, values))
     }
 
     @Test
-    fun GIVEN_offset_larger_than_size_WHEN_addIndex_THEN_wraps_modulo() {
+    fun GIVEN_offset_larger_than_size_WHEN_add_index_THEN_wraps_modulo() {
         assertEquals(Direction.EAST, Direction.NORTH.addIndex(values.size + 1, values))
     }
 
