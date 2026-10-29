@@ -1,5 +1,5 @@
 package ru.astrainteractive.klibs.mikro.core.util
 
-inline fun <reified T> Any.tryCast() = this as? T
+public inline fun <reified T> Any.tryCast(): T? = this as? T
 
-inline fun <reified T : Any> T?.orElse(block: () -> T) = this ?: block.invoke()
+public inline fun <reified T : Any> T?.orElse(block: () -> T): T = this ?: block.invoke()

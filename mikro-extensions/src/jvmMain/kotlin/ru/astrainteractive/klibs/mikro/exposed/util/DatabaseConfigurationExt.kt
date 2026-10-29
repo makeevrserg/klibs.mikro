@@ -1,6 +1,7 @@
 package ru.astrainteractive.klibs.mikro.exposed.util
 
 import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import org.jetbrains.exposed.v1.core.DatabaseConfig
 import org.jetbrains.exposed.v1.jdbc.Database
@@ -13,7 +14,7 @@ import kotlin.time.Duration.Companion.seconds
  *
  * @return The JDBC URL string for the database connection.
  */
-fun DatabaseConfiguration.getUrl(): String {
+public fun DatabaseConfiguration.toJdbcUrl(): String {
     return when (this) {
         is DatabaseConfiguration.H2 -> "jdbc:h2:${path}$stringArgument"
         is DatabaseConfiguration.SQLite -> "jdbc:sqlite:${path}$stringArgument"
@@ -28,7 +29,7 @@ fun DatabaseConfiguration.getUrl(): String {
  * @param databaseConfig Optional configuration for the database connection.
  * @return A [Database] object representing the established connection.
  */
-fun DatabaseConfiguration.connect(
+public fun DatabaseConfiguration.connect(
     databaseConfig: DatabaseConfig? = DatabaseConfig {
         defaultMinRetryDelay = 5.seconds.inWholeMilliseconds
         defaultMaxRetryDelay = 30.seconds.inWholeMilliseconds
@@ -36,13 +37,13 @@ fun DatabaseConfiguration.connect(
 ): Database {
     return when (this) {
         is DatabaseConfiguration.H2 -> Database.connect(
-            url = getUrl(),
+            url = toJdbcUrl(),
             driver = driver,
             databaseConfig = databaseConfig,
         )
 
         is DatabaseConfiguration.MySql -> Database.connect(
-            url = getUrl(),
+            url = toJdbcUrl(),
             driver = driver,
             user = user,
             password = password,
@@ -50,13 +51,13 @@ fun DatabaseConfiguration.connect(
         )
 
         is DatabaseConfiguration.SQLite -> Database.connect(
-            url = getUrl(),
+            url = toJdbcUrl(),
             driver = driver,
             databaseConfig = databaseConfig,
         )
 
         is DatabaseConfiguration.MariaDB -> Database.connect(
-            url = getUrl(),
+            url = toJdbcUrl(),
             driver = driver,
             user = user,
             password = password,
@@ -75,18 +76,20 @@ fun DatabaseConfiguration.connect(
  * @param databaseConfig Optional configuration for the database connection.
  * @return A [callbackFlow] emitting the [Database] object representing the established connection.
  */
-fun DatabaseConfiguration.connectAsFlow(
+public fun DatabaseConfiguration.connectAsFlow(
     databaseConfig: DatabaseConfig? = DatabaseConfig {
         defaultMinRetryDelay = 5.seconds.inWholeMilliseconds
         defaultMaxRetryDelay = 30.seconds.inWholeMilliseconds
     }
-) = callbackFlow {
-    val configuration = this@connectAsFlow
-    val database = configuration.connect(databaseConfig)
-    try {
-        send(database)
-        awaitClose()
-    } finally {
-        TransactionManager.closeAndUnregister(database)
+): Flow<Database> {
+    return callbackFlow {
+        val configuration = this@connectAsFlow
+        val database = configuration.connect(databaseConfig)
+        try {
+            send(database)
+            awaitClose()
+        } finally {
+            TransactionManager.closeAndUnregister(database)
+        }
     }
 }

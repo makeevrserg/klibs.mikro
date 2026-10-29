@@ -1,0 +1,10 @@
+@file:Suppress("MatchingDeclarationName")
+
+package ru.astrainteractive.klibs.mikro.core.dispatchers.api
+
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+
+internal actual object IODispatcher {
+    actual val IO: CoroutineDispatcher = Dispatchers.Default
+}
